@@ -77,4 +77,52 @@
     background: url($hat) no-repeat center;
     background-size: contain;
   }
+
+  // Blog Style 模式下的头像帽子（discourse-topic-thumbnails 组件）
+  .topic-thumbnails-blog-style-grid {
+    // 确保话题列表项允许溢出，以便帽子可以超出边界
+    .topic-list-item {
+      overflow: visible !important;
+    }
+
+    // 确保用户信息头部容器允许溢出
+    .topic-thumbnail-blog-header {
+      position: relative;
+      overflow: visible !important;
+    }
+
+    // 确保用户信息容器允许溢出
+    .topic-thumbnail-blog-user-info {
+      position: relative;
+      overflow: visible !important;
+    }
+
+    // 将帽子定位到用户信息容器上
+    .topic-thumbnail-blog-user-info::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: -18px;
+      left: -8px;
+      width: 56px;
+      height: 43px;
+      background: url($hat) no-repeat center;
+      background-size: contain;
+      z-index: 9999; // 最高层级，确保不被遮挡
+      pointer-events: none;
+    }
+
+    // 为不同的话题列表项添加不同的变换效果
+    .topic-list-item:nth-of-type(2n) .topic-thumbnail-blog-user-info::before {
+      transform: rotate(-5deg) translateX(-2px);
+    }
+
+    .topic-list-item:nth-of-type(3n) .topic-thumbnail-blog-user-info::before {
+      transform: scaleX(-1) rotate(5deg) translateX(-4px);
+    }
+
+    .topic-list-item:nth-of-type(5n) .topic-thumbnail-blog-user-info::before {
+      transform: rotate(5deg) translateX(2px);
+    }
+  }
 }
